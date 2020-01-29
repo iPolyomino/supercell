@@ -1,0 +1,29 @@
+name: deploy application to Firebase
+
+on:
+  push:
+    branches: 
+    - master
+    - release/*
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: yarn install
+      run: |
+        yarn install
+    - name: deploy to Firebase Hosting
+      run: |
+        yarn deploy --token=${{ secrets.FIREBASE_TOKEN }}
