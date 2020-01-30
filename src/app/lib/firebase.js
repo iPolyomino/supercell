@@ -1,4 +1,5 @@
-import firebase from "firebase";
+import * as firebase from "firebase/app";
+import "firebase/database";
 
 const config = {
   apiKey: "AIzaSyAz3DeqyRJ7HMrn0kJS0rTHTLkgy7WfZ-o",
@@ -7,7 +8,7 @@ const config = {
   projectId: "today-is-a-beautiful-day",
   storageBucket: "today-is-a-beautiful-day.appspot.com",
   messagingSenderId: "125896135034",
-  appId: "1:125896135034:web:1c525e31836f6308bb46c3"
+  appId: "1:125896135034:web:0c34557f6bb1727dbb46c3"
 };
 
 if (!firebase.apps.length) {

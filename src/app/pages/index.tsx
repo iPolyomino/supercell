@@ -28,12 +28,13 @@ export default () => {
     countRef.set({ click: count });
   });
 
+  const countup = () => setCount(count + 1);
+
   return (
     <App>
       <p>Index Page</p>
-      <Button onClick={setCount(count + 1)}>
-        Button was clicked {count} times.
-      </Button>
+      <Button>Button</Button>
+      <button onClick={countup}>Button was clicked {count} times.</button>
     </App>
   );
 };
