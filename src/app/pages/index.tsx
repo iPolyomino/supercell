@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 
-import firebase from "../lib/firebase";
 import App from "../components/App";
+import firebase from "../lib/firebase";
 
 const Button = styled.button`
   background: transparent;
@@ -12,7 +12,7 @@ const Button = styled.button`
   margin: 0 1em;
   padding: 0.25em 1em;
 
-  ${props =>
+  ${(props) =>
     props.primary &&
     css`
       background: palevioletred;
@@ -23,12 +23,6 @@ const Button = styled.button`
 export default () => {
   const countRef = firebase.database().ref("count");
 
-  countRef.once("value", snapshot => {
-    const snpVal = snapshot.val();
-    const totalCount = snpVal["click"];
-    console.log(`firebase:${totalCount}`);
-  });
-
   const [count, setCount] = useState(0);
   useEffect(() => {
     countRef.set({ click: count });
@@ -37,11 +31,7 @@ export default () => {
   return (
     <App>
       <p>Index Page</p>
-      <Button
-        onClick={() => {
-          setCount(count + 1);
-        }}
-      >
+      <Button onClick={setCount(count + 1)}>
         Button was clicked {count} times.
       </Button>
     </App>
