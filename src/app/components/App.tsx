@@ -1,10 +1,12 @@
 import Header from "./Header";
 
-const App = ({ children }: { children?: any }) => (
-  <main>
-    <Header />
-    {children}
-  </main>
-);
+const App = ({ children }: { children?: any }) => {
+  return (
+    <main>
+      <Header />
+      {children}
+    </main>
+  );
+};
 
 export default App;

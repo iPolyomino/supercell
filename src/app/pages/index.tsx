@@ -1,5 +1,7 @@
-import firebase from "../lib/firebase";
+import { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
+
+import firebase from "../lib/firebase";
 import App from "../components/App";
 
 const Button = styled.button`
@@ -18,17 +20,30 @@ const Button = styled.button`
     `}
 `;
 
-const chatRef = firebase.database().ref("chat");
-chatRef.on("value", snapshot => {
-  const chat = snapshot.val();
-  console.log(chat["all"]["text"]);
-});
-
 export default () => {
+  const countRef = firebase.database().ref("count");
+
+  countRef.once("value", snapshot => {
+    const snpVal = snapshot.val();
+    const totalCount = snpVal["click"];
+    console.log(`firebase:${totalCount}`);
+  });
+
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    countRef.set({ click: count });
+  });
+
   return (
     <App>
       <p>Index Page</p>
-      <Button>Button</Button>
+      <Button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        Button was clicked {count} times.
+      </Button>
     </App>
   );
 };
