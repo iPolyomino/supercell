@@ -16,7 +16,7 @@
     "rewrites": [
       {
         "source": "**/**",
-        "function": "nextApp"
+        "function": "note_polyomino_jp"
       }
     ],
     "predeploy": "npm run build-public"
