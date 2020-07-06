@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 import App from "../components/App";
 import firebase from "../lib/firebase";
@@ -11,13 +11,14 @@ const Button = styled.button`
   color: palevioletred;
   margin: 0 1em;
   padding: 0.25em 1em;
+`;
 
-  ${(props) =>
-    props.primary &&
-    css`
-      background: palevioletred;
-      color: wite;
-    `}
+const Input = styled.input`
+  padding: 0.5em;
+  margin: 0.5em;
+  background: papayawhip;
+  border: none;
+  border-radius: 3px;
 `;
 
 export default () => {
@@ -33,8 +34,8 @@ export default () => {
   return (
     <App>
       <p>Index Page</p>
-      <Button>Button</Button>
-      <button onClick={countup}>Button was clicked {count} times.</button>
+      <Input defaultValue={count} type="text" />
+      <Button onClick={countup}>send</Button>
     </App>
   );
 };
