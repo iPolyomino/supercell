@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Box, Heading, Button } from "rebass";
 import { useList } from "react-firebase-hooks/database";
@@ -22,6 +22,11 @@ export default () => {
     chatTextRef.push(text);
     setText("");
   };
+
+  const updateText = (e: React.FormEvent<HTMLInputElement>) => {
+    setText(e.currentTarget.value);
+  };
+
   return (
     <App>
       <Heading fontSize={5} color="primary">
@@ -48,7 +53,7 @@ export default () => {
             gridTemplateColumns: "1fr 100px"
           }}
         >
-          <TextArea value={text} onChange={e => setText(e.target.value)} />
+          <TextArea value={text} onChange={updateText} />
           <Button onClick={send}> send </Button>
         </Box>
       </Box>
