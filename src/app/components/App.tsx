@@ -1,10 +1,16 @@
+import React from "react";
+import { ThemeProvider } from "emotion-theming";
+import theme from "@rebass/preset";
+
 import Header from "./Header";
 
 const App = ({ children }: { children?: any }) => {
   return (
     <main>
-      <Header />
-      {children}
+      <ThemeProvider theme={theme}>
+        <Header />
+        {children}
+      </ThemeProvider>
     </main>
   );
 };
