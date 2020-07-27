@@ -32,7 +32,7 @@ export default () => {
       {!loading && snapshots && (
         <ul>
           {snapshots.map(v => (
-            <li>{v.val()}</li>
+            <li key={v.key}>{v.val()}</li>
           ))}
         </ul>
       )}
