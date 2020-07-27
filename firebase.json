@@ -16,7 +16,7 @@
     "rewrites": [
       {
         "source": "**/**",
-        "function": "note_polyomino_jp"
+        "function": "supercell"
       }
     ],
     "predeploy": "npm run build-public"
