@@ -23,7 +23,7 @@ export default () => {
     setText("");
   };
 
-  const updateText = (e: React.FormEvent<HTMLInputElement>) => {
+  const updateText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.currentTarget.value);
   };
 
@@ -37,7 +37,7 @@ export default () => {
       {!loading && snapshots && (
         <ul>
           {snapshots.map(v => (
-            <li key={v.key}>{v.val()}</li>
+            <li key={v.key!}>{v.val()}</li>
           ))}
         </ul>
       )}
