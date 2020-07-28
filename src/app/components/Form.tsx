@@ -20,17 +20,6 @@ const Button = styled.button`
 const Form = props => {
   const chatTextRef = props.chatTextRef;
 
-  const [text, setText] = useState("");
-  const [name, setName] = useState("");
-  const [userid, setUserid] = useState("");
-
-  const updateText = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setText(e.currentTarget.value);
-  };
-  const updateName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.currentTarget.value);
-  };
-
   const makeid = (length: number) => {
     let result = "";
     const characters =
@@ -42,11 +31,20 @@ const Form = props => {
     return result;
   };
 
+  const [text, setText] = useState("");
+  const [name, setName] = useState("");
+  const [userid] = useState(makeid(16));
+
+  const updateText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setText(e.currentTarget.value);
+  };
+  const updateName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.currentTarget.value);
+  };
+
+
   const send = () => {
     if (text === "") return;
-    if (userid === "") {
-      setUserid(makeid(16));
-    }
 
     const message = {
       name,
