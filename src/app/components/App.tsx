@@ -1,8 +1,22 @@
 import React from "react";
+import Head from "next/head";
 import styled from "styled-components";
 
 import Header from "./Header";
 import Navigation from "./Navigation";
+
+const Background = styled.div`
+  background-image: url("./background.jpg");
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: none;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+`;
 
 const Contents = styled.div`
   display: grid;
@@ -26,6 +40,11 @@ const Footer = styled.footer`
 const App = ({ children }: { children?: any }) => {
   return (
     <>
+      <Head>
+        <title>ちょっとちゃっと</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <Background />
       <Header />
       <Contents>
         <Navigation />

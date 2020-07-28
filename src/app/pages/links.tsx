@@ -5,7 +5,7 @@ import App from "../components/App";
 const Contents = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #f2f2f2;
+  background-color: #ffffff;
   padding: 8px;
 `;
 

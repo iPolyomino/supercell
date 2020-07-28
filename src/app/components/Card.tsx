@@ -6,7 +6,7 @@ const CardsLayout = styled.div`
 `;
 
 const CardLayout = styled.div`
-  background-color: #f2f2f2;
+  background-color: #ffffff;
   display: grid;
   grid-row-gap: 8px;
   grid-template-columns: repeat(3, 1fr);
