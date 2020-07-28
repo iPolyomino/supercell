@@ -16,7 +16,7 @@ export default () => {
         {loading && <p>Loading...</p>}
         {!loading && snapshots && <Card snapshots={snapshots} />}
       </article>
-      <Form chatTextRef={chatTextRef} />※ 無断転用転載禁止
+      <Form chatTextRef={chatTextRef} />
     </App>
   );
 };

@@ -15,7 +15,13 @@ const Contents = styled.div`
   padding: 16px;
 `;
 
-const PageContents = styled.div``;
+const Footer = styled.footer`
+  background-color: skyblue;
+  width: 990px;
+  margin: auto;
+  padding: 16px;
+  text-align: center;
+`;
 
 const App = ({ children }: { children?: any }) => {
   return (
@@ -23,8 +29,13 @@ const App = ({ children }: { children?: any }) => {
       <Header />
       <Contents>
         <Navigation />
-        <PageContents>{children}</PageContents>
+        <div>{children}</div>
       </Contents>
+      <Footer>
+        ※ 無断転用転載禁止
+        <br />
+        (c) 2020 Hagi All right reserved.
+      </Footer>
     </>
   );
 };

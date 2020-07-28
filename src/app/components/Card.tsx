@@ -10,6 +10,7 @@ const CardLayout = styled.div`
   display: grid;
   grid-row-gap: 8px;
   grid-template-columns: repeat(3, 1fr);
+  padding: 8px;
 `;
 
 const Comment = styled.span`

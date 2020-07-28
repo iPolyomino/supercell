@@ -15,7 +15,6 @@ const Button = styled.button`
   background-color: blue;
   font-size: 1.5rem;
   color: white;
-  border: solid black;
 `;
 
 const Form = props => {

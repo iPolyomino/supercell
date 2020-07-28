@@ -30,6 +30,13 @@ export default ({ pathname }: { pathname?: any }) => (
             </Link>
           </Td>
         </tr>
+        <tr>
+            <Td>
+                <Link href="/links">
+                    <a className={pathname === "/links" ? "is-active" : ""}>Links</a>
+                </Link>
+            </Td>
+        </tr>
       </tbody>
     </Table>
   </nav>
