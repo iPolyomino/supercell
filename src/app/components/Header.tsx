@@ -1,12 +1,11 @@
-import Link from "next/link";
+import styled from "styled-components";
 
-export default ({ pathname }: { pathname?: any }) => (
+const H1 = styled.h1`
+  text-align: center;
+`;
+
+export default () => (
   <header>
-    <Link href="/">
-      <a className={pathname === "/" ? "is-active" : ""}>Home</a>
-    </Link>
-    <Link href="/about">
-      <a className={pathname === "/about" ? "is-active" : ""}>About</a>
-    </Link>
+    <H1>ちょっとちゃっと</H1>
   </header>
 );
