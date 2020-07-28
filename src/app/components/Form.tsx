@@ -22,6 +22,7 @@ const Form = props => {
 
   const [text, setText] = useState("");
   const [name, setName] = useState("");
+  const [userid, setUserid] = useState("");
 
   const updateText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.currentTarget.value);
@@ -43,13 +44,18 @@ const Form = props => {
 
   const send = () => {
     if (text === "") return;
+    if (userid === "") {
+      setUserid(makeid(16));
+    }
+
     const message = {
       name,
       comment: text,
       time: new Date().toISOString(),
-      id: `${makeid(16)}`
+      id: userid
     };
     chatTextRef.push(message);
+
     setText("");
   };
   return (
