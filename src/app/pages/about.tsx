@@ -16,7 +16,7 @@ const ClapButton = styled.button`
   width: 100px;
 `;
 
-export default () => (
+const About = () => (
   <App>
     <Contents>
       <h2>ちょっとちゃっとについて</h2>
@@ -40,3 +40,5 @@ export default () => (
     </Contents>
   </App>
 );
+
+export default About;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Header = styled.header`
+const CustomHeader = styled.header`
   text-align: center;
   position: relative;
 `;
@@ -25,9 +25,11 @@ const Img = styled.img`
   height: 200px;
 `;
 
-export default () => (
-  <Header>
+const Header = () => (
+  <CustomHeader>
     <Img src="./tree.png" />
     <H1>ちょっとちゃっと</H1>
-  </Header>
+  </CustomHeader>
 );
+
+export default Header;

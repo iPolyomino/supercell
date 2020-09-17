@@ -9,7 +9,7 @@ const Contents = styled.div`
   padding: 8px;
 `;
 
-export default () => (
+const Links = () => (
   <App>
     <Contents>
       <h2>相互リンク</h2>
@@ -29,3 +29,5 @@ export default () => (
     </Contents>
   </App>
 );
+
+export default Links;

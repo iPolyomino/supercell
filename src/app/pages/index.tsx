@@ -5,7 +5,7 @@ import Card from "../components/Card";
 import Form from "../components/Form";
 import firebase from "../lib/firebase";
 
-export default () => {
+const Index = () => {
   const chatTextRef = firebase.database().ref("chat");
   const [snapshots, loading, error] = useList(chatTextRef);
 
@@ -20,3 +20,5 @@ export default () => {
     </App>
   );
 };
+
+export default Index;

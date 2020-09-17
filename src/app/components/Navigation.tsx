@@ -12,7 +12,7 @@ const Td = styled.td`
   padding: 8px;
 `;
 
-export default ({ pathname }: { pathname?: any }) => (
+const Navigation = ({ pathname }: { pathname?: any }) => (
   <nav>
     <Table>
       <tbody>
@@ -41,3 +41,5 @@ export default ({ pathname }: { pathname?: any }) => (
     </Table>
   </nav>
 );
+
+export default Navigation;
