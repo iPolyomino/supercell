@@ -12,30 +12,30 @@ const Td = styled.td`
   padding: 8px;
 `;
 
-const Navigation = ({ pathname }: { pathname?: any }) => (
+const Navigation = () => (
   <nav>
     <Table>
       <tbody>
         <tr>
           <Td>
             <Link href="/">
-              <a className={pathname === "/" ? "is-active" : ""}>Home</a>
+              Home
             </Link>
           </Td>
         </tr>
         <tr>
           <Td>
             <Link href="/about">
-              <a className={pathname === "/about" ? "is-active" : ""}>About</a>
+              About
             </Link>
           </Td>
         </tr>
         <tr>
-            <Td>
-                <Link href="/links">
-                    <a className={pathname === "/links" ? "is-active" : ""}>Links</a>
-                </Link>
-            </Td>
+          <Td>
+            <Link href="/links">
+              Links
+            </Link>
+          </Td>
         </tr>
       </tbody>
     </Table>
