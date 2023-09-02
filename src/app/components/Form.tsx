@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { ref, push, set } from "firebase/database"
+
+import { db } from "../lib/firebase";
 
 const FormLayout = styled.div`
   display: grid;
@@ -17,9 +20,7 @@ const Button = styled.button`
   color: white;
 `;
 
-const Form = props => {
-  const chatTextRef = props.chatTextRef;
-
+const Form = () => {
   const makeid = (length: number) => {
     let result = "";
     const characters =
@@ -52,7 +53,8 @@ const Form = props => {
       time: new Date().toISOString(),
       id: userid
     };
-    chatTextRef.push(message);
+    const newCommentRef = push(ref(db, "count"));
+    set(newCommentRef, message);
 
     setText("");
   };

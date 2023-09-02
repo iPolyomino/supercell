@@ -17,7 +17,7 @@ const Index = () => {
         {loading && <p>Loading...</p>}
         {!loading && snapshots && <Card snapshots={snapshots} />}
       </article>
-      <Form chatTextRef={chatTextRef} />
+      <Form />
     </App>
   );
 };
