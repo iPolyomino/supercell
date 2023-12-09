@@ -18,24 +18,24 @@ const Navigation = ({ pathname }: { pathname?: any }) => (
       <tbody>
         <tr>
           <Td>
-            <Link href="/">
-              <a className={pathname === "/" ? "is-active" : ""}>Home</a>
+            <Link href="/" className={pathname === "/" ? "is-active" : ""}>
+              Home
             </Link>
           </Td>
         </tr>
         <tr>
           <Td>
-            <Link href="/about">
-              <a className={pathname === "/about" ? "is-active" : ""}>About</a>
+            <Link href="/about" className={pathname === "/about" ? "is-active" : ""}>
+              About
             </Link>
           </Td>
         </tr>
         <tr>
-            <Td>
-                <Link href="/links">
-                    <a className={pathname === "/links" ? "is-active" : ""}>Links</a>
-                </Link>
-            </Td>
+          <Td>
+            <Link href="/links" className={pathname === "/links" ? "is-active" : ""}>
+              Links
+            </Link>
+          </Td>
         </tr>
       </tbody>
     </Table>
