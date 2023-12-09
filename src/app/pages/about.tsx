@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Link from "next/link";
 
 import App from "../components/App";
 
@@ -23,14 +24,14 @@ const About = () => (
       <article>
         <p>
           「ちょっとちゃっと」とは、
-          <a href="https://twitter.com/iPolyomino"> Hagi </a>
+          <Link href="https://twitter.com/iPolyomino"> Hagi </Link>
           が作成したちょっとチャットができるアプリケーションです。Next.js と
           Firebase Realtime Database
           で実装しました。勉強しながら作成したので、もしかしたら不具合があるかもしれないけど許して(´・ω・｀)
         </p>
         <p>
           ソースコードは
-          <a href="https://github.com/iPolyomino/supercell">こちら</a>から。
+          <Link href="https://github.com/iPolyomino/supercell">こちら</Link>から。
           プルリク待ってます＼(^o^)／
         </p>
         <p>

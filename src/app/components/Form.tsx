@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { push } from "firebase/database";
 
 const FormLayout = styled.div`
   display: grid;
@@ -43,16 +44,21 @@ const Form = props => {
   };
 
 
-  const send = () => {
+  const send = async () => {
     if (text === "") return;
+
+    const ipAddress = await fetch(`https://api64.ipify.org?format=json`)
+      .then(res => res.json())
+      .then(data => data.ip);
 
     const message = {
       name,
       comment: text,
       time: new Date().toISOString(),
-      id: userid
+      id: userid,
+      ip: ipAddress
     };
-    chatTextRef.push(message);
+    push(chatTextRef, message);
 
     setText("");
   };

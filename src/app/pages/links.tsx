@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Link from "next/link";
 
 import App from "../components/App";
 
@@ -15,15 +16,15 @@ const Links = () => (
       <h2>相互リンク</h2>
       <ul>
         <li>
-          <a href="https://polyomino.jp/">Hagi のホームページ</a>
+          <Link href="https://polyomino.jp/">Hagi のホームページ</Link>
         </li>
         <li>
-          <a href="https://twitter.com/iPolyomino">Twitter</a>
+          <Link href="https://twitter.com/iPolyomino">Twitter</Link>
         </li>
         <li>
-          <a href="https://github.com/iPolyomino/supercell">
+          <Link href="https://github.com/iPolyomino/supercell">
             このページのソースコード
-          </a>
+          </Link>
         </li>
       </ul>
     </Contents>
