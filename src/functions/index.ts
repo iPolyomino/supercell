@@ -1,12 +1,19 @@
 import * as functions from "firebase-functions";
-import next from "next";
+import { default as next, NextApiRequest, NextApiResponse } from "next";
 
 const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev, conf: { distDir: "next" } });
+const app = next({ dev });
 const handle = app.getRequestHandler();
 
-export const supercell = functions.https.onRequest((req, res) => {
-  console.log("File: " + req.originalUrl);
+export const supercell = functions.https.onRequest(
   // @ts-ignore
-  return app.prepare().then(() => handle(req, res));
-});
+  async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      await app.prepare();
+      await handle(req, res);
+    } catch (error) {
+      console.error("functions error:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  }
+);
