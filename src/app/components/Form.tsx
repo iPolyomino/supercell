@@ -36,10 +36,10 @@ const Form = props => {
   const [name, setName] = useState("");
   const [userid] = useState(makeid(16));
 
-  const updateText = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const updateText = (e) => {
     setText(e.currentTarget.value);
   };
-  const updateName = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const updateName = (e) => {
     setName(e.currentTarget.value);
   };
 
@@ -47,8 +47,12 @@ const Form = props => {
   const send = async () => {
     if (text === "") return;
 
+    type Ip = {
+      ip: string;
+    };
+
     const ipAddress = await fetch(`https://api64.ipify.org?format=json`)
-      .then(res => res.json())
+      .then(res => res.json() as Promise<Ip>)
       .then(data => data.ip);
 
     const message = {

@@ -7,5 +7,6 @@ const handle = app.getRequestHandler();
 
 export const supercell = functions.https.onRequest((req, res) => {
   console.log("File: " + req.originalUrl);
+  // @ts-ignore
   return app.prepare().then(() => handle(req, res));
 });
