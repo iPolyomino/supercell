@@ -51,6 +51,14 @@ npx firebase emulators:exec --only database --project demo-supercell 'node scrip
 テストはデモDBを初期化し、公開/非公開アクセス、直接書き込み禁止、入力検証、
 IPの正規化、公開/非公開データの紐付け、同時投稿の制限を確認します。
 
+GitHub Actionsの本番デプロイは、非推奨の`FIREBASE_TOKEN`や長期保存するJSON鍵を使わず、
+Workload Identity Federationで一時的な認証情報を取得します。
+Google Cloud側でGitHubのOIDCプロバイダとデプロイ専用サービスアカウントを作成し、
+対象リポジトリ・ブランチに限定してサービスアカウントの権限を委譲してください。
+Actions secretsには、プロバイダ完全修飾名を`WORKLOAD_IDENTITY_PROVIDER`、
+サービスアカウントのメールアドレスを`FIREBASE_DEPLOY_SERVICE_ACCOUNT`として登録します。
+ワークフローにはOIDC用の`id-token: write`権限を設定済みです。
+
 ## 画像
 
 - http://bg-patterns.com/?p=1770
