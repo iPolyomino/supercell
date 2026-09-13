@@ -10,6 +10,7 @@
     "dev": "next dev src/app --webpack",
     "preserve": "npm run build-public && npm run build-functions && npm run build-app && npm run copy-deps && npm run install-deps",
     "serve": "cross-env NODE_ENV=production firebase serve",
+    "predeploy": "firebase functions:artifacts:setpolicy --location us-central1 --days 7 --force --non-interactive",
     "deploy": "firebase deploy",
     "clean": "node scripts/files.cjs clean",
     "build-app": "node scripts/build-app.cjs",
