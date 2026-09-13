@@ -9,7 +9,6 @@ on:
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
   check:
@@ -29,13 +28,26 @@ jobs:
       - run: npm run typecheck-app
       - run: npm run test:database
       - run: npm run build-app
-      - name: Deploy to Firebase
-        if: github.event_name == 'push'
+
+  deploy:
+    needs: check
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
           workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.FIREBASE_DEPLOY_SERVICE_ACCOUNT }}
           create_credentials_file: true
       - name: Deploy to Firebase
-        if: github.event_name == 'push'
         run: npm run deploy
