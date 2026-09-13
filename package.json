@@ -12,7 +12,7 @@
     "serve": "cross-env NODE_ENV=production firebase serve",
     "deploy": "firebase deploy",
     "clean": "rimraf \"dist/functions\" && rimraf \"dist/public\"",
-    "build-app": "next build \"src/app\"",
+    "build-app": "node scripts/build-app.cjs",
     "build-public": "cpx \"src/public/**/*.*\" \"dist/public\" -C",
     "build-functions": "tsc --project src/functions",
     "lint-app": "tslint --project src/app",

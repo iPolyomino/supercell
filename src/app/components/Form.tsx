@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import { push } from "firebase/database";
+import { getFunctions, httpsCallable } from "firebase/functions";
+import { app } from "../lib/firebase";
 
 const FormLayout = styled.div`
   display: grid;
@@ -18,9 +19,7 @@ const Button = styled.button`
   color: white;
 `;
 
-const Form = props => {
-  const chatTextRef = props.chatTextRef;
-
+const Form = () => {
   const makeid = (length: number) => {
     let result = "";
     const characters =
@@ -35,6 +34,9 @@ const Form = props => {
   const [text, setText] = useState("");
   const [name, setName] = useState("");
   const [userid] = useState(makeid(16));
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
+  const inFlight = useRef(false);
 
   const updateText = (e) => {
     setText(e.currentTarget.value);
@@ -43,41 +45,41 @@ const Form = props => {
     setName(e.currentTarget.value);
   };
 
-
   const send = async () => {
-    if (text === "") return;
-
-    type Ip = {
-      ip: string;
-    };
-
-    const ipAddress = await fetch(`https://api64.ipify.org?format=json`)
-      .then(res => res.json() as Promise<Ip>)
-      .then(data => data.ip);
-
-    const message = {
-      name,
-      comment: text,
-      time: new Date().toISOString(),
-      id: userid,
-      ip: ipAddress
-    };
-    push(chatTextRef, message);
-
-    setText("");
+    if (inFlight.current) return;
+    if (text.trim() === "" || text.length > 1000 || name.length > 40) return;
+    inFlight.current = true;
+    setSending(true);
+    setError("");
+    try {
+      await httpsCallable(getFunctions(app), "postChat")({ name, comment: text, id: userid });
+      setText("");
+    } catch (failure) {
+      const code = (failure as { code?: string }).code;
+      setError(code === "functions/resource-exhausted"
+        ? "同じ接続元からの投稿は10秒間隔でお願いします。"
+        : "投稿できませんでした。時間をおいて再度お試しください。");
+    } finally {
+      inFlight.current = false;
+      setSending(false);
+    }
   };
   return (
-    <FormLayout>
-      <div>
-        <label htmlFor="name">名前</label>
-        <input id="name" type="text" value={name} onChange={updateName} />
-      </div>
-      <div>
-        <label htmlFor="comment">コメント</label>
-        <Input id="comment" value={text} onChange={updateText} />
-      </div>
-      <Button onClick={send}>書き込む</Button>
-    </FormLayout>
+    <>
+      <FormLayout>
+        <div>
+          <label htmlFor="name">名前</label>
+          <input id="name" type="text" disabled={sending} maxLength={40} value={name} onChange={updateName} />
+        </div>
+        <div>
+          <label htmlFor="comment">コメント</label>
+          <Input id="comment" disabled={sending} maxLength={1000} value={text} onChange={updateText} />
+        </div>
+        <Button onClick={send} disabled={sending}>{sending ? "送信中…" : "書き込む"}</Button>
+      </FormLayout>
+      {error && <p role="alert">{error}</p>}
+      <p>荒らし対策のため、投稿に接続元のIPアドレスを紐付けて保存します。IPは公開されません。</p>
+    </>
   );
 };
 
