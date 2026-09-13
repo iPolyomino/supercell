@@ -3,7 +3,7 @@ const { cpSync, rmSync } = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 // Build beside the source so React cannot resolve through deployment dependencies.
-execFileSync(process.execPath, [require.resolve('next/dist/bin/next'), 'build', 'src/app'], {
+execFileSync(process.execPath, [require.resolve('next/dist/bin/next'), 'build', 'src/app', '--webpack'], {
   cwd: root, stdio: 'inherit'
 });
 const output = path.join(root, 'dist/functions/.next');

@@ -33,15 +33,15 @@ const Form = () => {
 
   const [text, setText] = useState("");
   const [name, setName] = useState("");
-  const [userid] = useState(makeid(16));
+  const [userid] = useState(() => makeid(16));
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   const inFlight = useRef(false);
 
-  const updateText = (e) => {
+  const updateText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.currentTarget.value);
   };
-  const updateName = (e) => {
+  const updateName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.currentTarget.value);
   };
 
@@ -75,7 +75,7 @@ const Form = () => {
           <label htmlFor="comment">コメント</label>
           <Input id="comment" disabled={sending} maxLength={1000} value={text} onChange={updateText} />
         </div>
-        <Button onClick={send} disabled={sending}>{sending ? "送信中…" : "書き込む"}</Button>
+        <Button onClick={() => { void send(); }} disabled={sending}>{sending ? "送信中…" : "書き込む"}</Button>
       </FormLayout>
       {error && <p role="alert">{error}</p>}
       <p>荒らし対策のため、投稿に接続元のIPアドレスを紐付けて保存します。IPは公開されません。</p>

@@ -1,3 +1,4 @@
 module.exports = {
-  distDir: '.next',
-}
+  distDir: ".next",
+  compiler: { styledComponents: true },
+};

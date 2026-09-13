@@ -34,7 +34,8 @@ export async function savePost(db: Database, input: unknown, ip: string) {
   if (!reservation.committed) {
     throw new HttpsError("resource-exhausted", "同じ接続元からの投稿は10秒間隔でお願いします。");
   }
-  const postId = db.ref("chat").push().key!;
+  const postId = db.ref("chat").push().key;
+  if (!postId) throw new HttpsError("internal", "投稿IDを生成できませんでした。");
   // A single atomic update prevents a public post without its private metadata.
   await db.ref().update({
     [`chat/${postId}`]: { name: data.name, comment: data.comment, id: data.id, time: new Date(now).toISOString() },

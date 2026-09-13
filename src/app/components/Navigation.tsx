@@ -12,7 +12,7 @@ const Td = styled.td`
   padding: 8px;
 `;
 
-const Navigation = ({ pathname }: { pathname?: any }) => (
+const Navigation = ({ pathname }: { pathname?: string }) => (
   <nav>
     <Table>
       <tbody>

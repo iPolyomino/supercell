@@ -1,5 +1,5 @@
-import * as functions from "firebase-functions";
-import { default as next, NextApiRequest, NextApiResponse } from "next";
+import * as functions from "firebase-functions/v1";
+import next from "next";
 import { initializeApp } from "firebase-admin/app";
 import { getDatabase } from "firebase-admin/database";
 import { clientIp, savePost } from "./chat";
@@ -17,8 +17,7 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 export const supercell = functions.https.onRequest(
-  // @ts-ignore
-  async (req: NextApiRequest, res: NextApiResponse) => {
+  async (req, res) => {
     try {
       await app.prepare();
       await handle(req, res);

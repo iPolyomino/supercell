@@ -1,29 +1,35 @@
-name: deploy application to Firebase
+name: Validate and deploy application
 
 on:
+  pull_request:
   push:
-    branches: 
-    - master
-    - release/*
+    branches:
+      - master
+      - release/*
+
+permissions:
+  contents: read
 
 jobs:
-  build:
-
+  check:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [20.x]
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: yarn install
-      run: |
-        yarn install
-    - name: deploy to Firebase Hosting
-      run: |
-        yarn deploy --token=${{ secrets.FIREBASE_TOKEN }}
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck-app
+      - run: npm run test:database
+      - run: npm run build-app
+      - name: Deploy to Firebase
+        if: github.event_name == 'push'
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: npm run deploy

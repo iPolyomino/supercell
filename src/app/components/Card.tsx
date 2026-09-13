@@ -1,3 +1,4 @@
+import type { DataSnapshot } from "firebase/database";
 import styled from "styled-components";
 
 const CardsLayout = styled.div`
@@ -19,18 +20,22 @@ const Comment = styled.span`
   grid-column-end: 4;
 `;
 
-const Card = props => {
-  const snapshots = props.snapshots;
+type Message = { name?: string; time: string; id: string; comment: string };
+
+const Card = ({ snapshots }: { snapshots: DataSnapshot[] }) => {
   return (
     <CardsLayout>
-      {snapshots.map(v => (
-        <CardLayout key={v.key!}>
-          <b>{v.val().name || "名無しさん"}</b>
-          <time>{v.val().time}</time>
-          <span>ID:{v.val().id}</span>
-          <Comment>{v.val().comment}</Comment>
+      {snapshots.map(v => {
+        const message: Message = v.val();
+        return (
+        <CardLayout key={v.key}>
+          <b>{message.name || "名無しさん"}</b>
+          <time>{message.time}</time>
+          <span>ID:{message.id}</span>
+          <Comment>{message.comment}</Comment>
         </CardLayout>
-      ))}
+        );
+      })}
     </CardsLayout>
   );
 };

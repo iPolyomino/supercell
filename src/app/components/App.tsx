@@ -37,7 +37,7 @@ const Footer = styled.footer`
   text-align: center;
 `;
 
-const App = ({ children }: { children?: any }) => {
+const App = ({ children }: { children?: React.ReactNode }) => {
   return (
     <>
       <Head>

@@ -27,7 +27,7 @@ const Img = styled.img`
 
 const Header = () => (
   <CustomHeader>
-    <Img src="./tree.png" />
+    <Img src="./tree.png" alt="" />
     <H1>ちょっとちゃっと</H1>
   </CustomHeader>
 );
