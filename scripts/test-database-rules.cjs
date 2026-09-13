@@ -58,19 +58,6 @@ async function main() {
   await db.ref(`chatRateLimits/${createHash('sha256').update('192.0.2.1').digest('hex')}`).set(Date.now() - 10001);
   await savePost(db, message, '192.0.2.1');
   checks += 2;
-  const { execFileSync } = require('node:child_process');
-  await db.ref('chat/legacy').set({ ...message, ip: '192.0.2.88' });
-  const options = { env: { ...process.env, CHAT_DATABASE_URL: 'https://demo-supercell-default-rtdb.firebaseio.com' } };
-  const preview = execFileSync(process.execPath, ['scripts/migrate-chat-ips.cjs'], options).toString();
-  assert.ok(!preview.includes('192.0.2.88'));
-  assert.equal((await db.ref('chat/legacy/ip').get()).val(), '192.0.2.88');
-  for (let i = 0; i < 2; i++) {
-    execFileSync(process.execPath, ['scripts/migrate-chat-ips.cjs', '--apply'], options);
-    assert.equal((await db.ref('chat/legacy/ip').get()).exists(), false);
-    assert.equal((await db.ref('chatPrivate/legacy/legacyClientIp').get()).val(), '192.0.2.88');
-    assert.equal((await db.ref('chat/legacy/comment').get()).val(), message.comment);
-  }
-  checks += 8;
   console.log(`Database and posting: ${checks} checks passed`);
 }
 main().catch(error => { console.error(error); process.exitCode = 1; }).finally(() => deleteApp(app));

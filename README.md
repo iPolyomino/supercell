@@ -29,29 +29,18 @@ IP取得は第1世代の `cloudfunctions.net` エンドポイントへの直接�
 
 IPと頻度制限データは自動削除しません。運用に合わせて保存期間を定め、管理者側で削除してください。
 
-### 既存データの移行と適用
+既存投稿のIPは移行済みで、`chatPrivate/{投稿ID}/legacyClientIp` に保存しています。
+旧IPはクライアント申告値のため、新しいサーバー取得IPとは区別します。
 
-ルールは既存投稿のIPを隠しません。以下の順で移行してください。
+### デプロイ
 
-1. DBをバックアップし、一時的に全クライアントの読み書きを禁止して投稿を停止する。
-2. 管理者認証を設定し、対象のDB URLを `CHAT_DATABASE_URL` に指定する。
-3. `node scripts/migrate-chat-ips.cjs` で対象件数を確認する（変更なし・IP値の出力なし）。
-4. `node scripts/migrate-chat-ips.cjs --apply` で旧IPを `chatPrivate/{投稿ID}/legacyClientIp` に移す。
-   旧IPはクライアント申告値のため、新しいサーバー取得IPとは区別する。
-5. `chat` にIPが残っていないことを確認し、`npx firebase deploy --only functions,hosting,database` で適用する。
-
-旧版クライアントからのDB直接投稿は拒否されます。ページの再読み込みが必要です。
-移行スクリプトは再実行可能です。本番DBの移行・デプロイは自動実行しません。
-
-Admin SDK用の認証が利用できない場合は `--firebase-cli` を付けると、
-ログイン済みFirebase CLIの認証でREST API経由で実行できます。
-`--apply --backup <ファイルパス>` で、変更直前のDB全体を所有者のみ読み書き可能な
-ファイルへ保存できます。同名ファイルがある場合は上書きせず停止します。
-バックアップにはIPが含まれるため、Git管理外のアクセス制限された場所に保管してください。
+```sh
+npx firebase deploy --only functions,hosting,database
+```
 
 ### 検証
 
-JavaとNode.jsが必要です。
+Node.jsが必要です。DBエミュレーターを起動する検証にはJavaも必要です。
 
 ```sh
 npm run build-functions
